@@ -1,0 +1,17 @@
+{% extends "../base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{% trans 'Records' %}{% endblock meta_title %}
+
+{% block title %}{% trans 'Records List' %}{% endblock title %}
+
+{% block content %}
+{#  <a href="{% url "records_add" %}" class="btn btn-primary">{% trans "Add Student" %}</a>#}
+
+
+<p>{% trans "Welcome to Records List" %}</p>
+
+
+{% endblock content %}
