@@ -21,6 +21,7 @@ from records import views
 urlpatterns = [
     # Records urls
     url(r'^$', views.records_list, name='home'),
+    url(r'^add/$', views.records_add, name='record_add'),
 
     url(r'^admin/', admin.site.urls),
 ]
