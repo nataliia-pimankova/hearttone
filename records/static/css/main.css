@@ -1,5 +1,9 @@
+/* navbar */
 .navbar-brand{
     font-family: 'Satisfy', cursive;
 }
 
-
+/* Forms */
+.form-group {
+    max-width: 500px;
+}
