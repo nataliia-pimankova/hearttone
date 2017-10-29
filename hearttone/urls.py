@@ -20,8 +20,9 @@ from records import views
 
 urlpatterns = [
     # Records urls
-    url(r'^$', views.records_list, name='home'),
+    url(r'^$', views.PatientList.as_view(), name='home'),
     url(r'^add/$', views.records_add, name='record_add'),
+    url(r'^edit/(?P<pk>\d+)/edit/$', views.records_edit, name='record_edit'),
 
     url(r'^admin/', admin.site.urls),
 ]

@@ -10,8 +10,38 @@
 {% block content %}
   <a href="{% url "record_add" %}" class="btn btn-primary">{% trans "Add Record" %}</a>
 
+<table class="table">
+  {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>{% trans "History" %}</th>
+      <th>{% trans "Date & Time" %}</th>
+      <th>{% trans "Gender" %}</th>
+      <th>{% trans "Weight" %}</th>
+      <th>{% trans "Length" %}</th>
+      <th>{% trans "path to file" %}</th>
+    </tr>
+  </thead>
+  {% endwith %}
+  <tbody>
+    {% for record in records %}
+    <tr>
+      <td>
+        {{ forloop.counter }}
+      </td>
+      <td><a href="{% url "record_edit" record.id %}" >{{ record.history_number }}</a></td>
+      <td>{{ record.date_time }}</td>
+      <td>{{ record.gender }}</td>
+      <td>{{ record.weight }}</td>
+      <td>{{ record.length }}</td>
+      <td>{{ record.path_to_file }}</td>
+    </tr>
+    {% endfor %}
 
-<p>{% trans "Welcome to Records List" %}</p>
+  </tbody>
+</table>
+<!-- End Patient Listing -->
 
 
 {% endblock content %}
