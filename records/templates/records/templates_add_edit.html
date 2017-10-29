@@ -1,0 +1,19 @@
+{% extends "../base.html" %}
+
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}{{ form.headline }}{% endblock meta_title %}
+
+{% block title %}{{ form.headline }}{% endblock title %}
+
+{% block content %}
+
+<form action="{{ form.form_action }}" method="{{ form.form_method }}"
+      class="form-horizontal" novalidate enctype="multipart/form-data">
+
+    {% crispy form %}
+
+</form>
+
+{% endblock content %}
