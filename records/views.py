@@ -2,10 +2,14 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.contrib import messages
 
 from .models import Patient
+from .forms import RecordCreateForm, RecordUpdateForm
+
 
 def records_list(request):
     return render(request, 'records/records_list.html', {})
@@ -36,4 +40,47 @@ class PatientList(ListView):
     #     context['patients']
     #     # return context mapping
     #     return context
+
+
+class RecordCreateView(CreateView):
+    model = Patient
+    form_class = RecordCreateForm
+    template_name = 'records/templates_add_edit.html'
+
+    def get_success_url(self):
+        messages.success(self.request, u"Record added successfully!")
+        return reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            messages.info(request, u'Record addition canceled!')
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return super(RecordCreateView, self).post(request,*args,**kwargs)
+
+
+class RecordUpdateView(UpdateView):
+    model = Patient
+    form_class = RecordUpdateForm
+    template_name = 'records/templates_add_edit.html'
+
+    def get_success_url(self):
+        messages.success(self.request, u"Record saved successfully!")
+        return reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            messages.info(request, u'Record edition canceled!')
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return super(RecordUpdateView, self).post(request,*args,**kwargs)
+
+
+class RecordDeleteView(DeleteView):
+    model = Patient
+    template_name = 'records/record_confirm_delete.html'
+
+    def get_success_url(self):
+        messages.success(self.request, u"Record deleted successfully!")
+        return reverse('home')
 

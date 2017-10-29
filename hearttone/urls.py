@@ -15,14 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views import static
 
 from records import views
+from .settings import MEDIA_ROOT, DEBUG
 
 urlpatterns = [
     # Records urls
     url(r'^$', views.PatientList.as_view(), name='home'),
-    url(r'^add/$', views.records_add, name='record_add'),
-    url(r'^edit/(?P<pk>\d+)/edit/$', views.records_edit, name='record_edit'),
+    url(r'^add/$', views.RecordCreateView.as_view(), name='record_add'),
+    url(r'^edit/(?P<pk>\d+)/edit/$', views.RecordUpdateView.as_view(), name='record_edit'),
+    url(r'^delete/(?P<pk>\d+)/delete/$', views.RecordDeleteView.as_view(), name='record_delete'),
 
     url(r'^admin/', admin.site.urls),
 ]
+
+if DEBUG:
+    urlpatterns += [url(r'^media/(?P<path>.*)$', static.serve,
+                       {'document_root': MEDIA_ROOT}),
+                    ]

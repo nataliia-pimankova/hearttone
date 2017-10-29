@@ -49,6 +49,7 @@ class Patient(TimeStampedModel):
     path_to_file = models.FileField(
         blank=True,
         verbose_name=u"Record",
+        upload_to='',
         null=True
     )
 
