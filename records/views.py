@@ -8,7 +8,7 @@ from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.contrib import messages
 
 from .models import Patient
-from .forms import RecordCreateForm, RecordUpdateForm
+from .forms import PatientCreateForm, PatientUpdateForm
 
 
 def records_list(request):
@@ -26,7 +26,7 @@ def records_edit(request):
 # Views for Groups
 class PatientList(ListView):
     model = Patient
-    context_object_name = 'records'
+    context_object_name = 'patients'
     template_name = 'records/records_list.html'
 
     # def get_context_data(self, **kwargs):
@@ -42,9 +42,9 @@ class PatientList(ListView):
     #     return context
 
 
-class RecordCreateView(CreateView):
+class PatientCreateView(CreateView):
     model = Patient
-    form_class = RecordCreateForm
+    form_class = PatientCreateForm
     template_name = 'records/templates_add_edit.html'
 
     def get_success_url(self):
@@ -56,12 +56,12 @@ class RecordCreateView(CreateView):
             messages.info(request, u'Record addition canceled!')
             return HttpResponseRedirect(reverse('home'))
         else:
-            return super(RecordCreateView, self).post(request,*args,**kwargs)
+            return super(PatientCreateView, self).post(request, *args, **kwargs)
 
 
-class RecordUpdateView(UpdateView):
+class PatientUpdateView(UpdateView):
     model = Patient
-    form_class = RecordUpdateForm
+    form_class = PatientUpdateForm
     template_name = 'records/templates_add_edit.html'
 
     def get_success_url(self):
@@ -73,10 +73,10 @@ class RecordUpdateView(UpdateView):
             messages.info(request, u'Record edition canceled!')
             return HttpResponseRedirect(reverse('home'))
         else:
-            return super(RecordUpdateView, self).post(request,*args,**kwargs)
+            return super(PatientUpdateView, self).post(request, *args, **kwargs)
 
 
-class RecordDeleteView(DeleteView):
+class PatientDeleteView(DeleteView):
     model = Patient
     template_name = 'records/record_confirm_delete.html'
 

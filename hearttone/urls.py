@@ -23,14 +23,15 @@ from .settings import MEDIA_ROOT, DEBUG
 urlpatterns = [
     # Records urls
     url(r'^$', views.PatientList.as_view(), name='home'),
-    url(r'^add/$', views.RecordCreateView.as_view(), name='record_add'),
-    url(r'^edit/(?P<pk>\d+)/edit/$', views.RecordUpdateView.as_view(), name='record_edit'),
-    url(r'^delete/(?P<pk>\d+)/delete/$', views.RecordDeleteView.as_view(), name='record_delete'),
+    url(r'^patient/add/$', views.PatientCreateView.as_view(), name='patient_add'),
+    url(r'^patient/(?P<pk>\d+)/edit/$', views.PatientUpdateView.as_view(), name='patient_edit'),
+    url(r'^patient/(?P<pk>\d+)/delete/$', views.PatientDeleteView.as_view(), name='patient_delete'),
 
     url(r'^admin/', admin.site.urls),
 ]
 
 if DEBUG:
-    urlpatterns += [url(r'^media/(?P<path>.*)$', static.serve,
-                       {'document_root': MEDIA_ROOT}),
-                    ]
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', static.serve,
+            {'document_root': MEDIA_ROOT}),
+    ]

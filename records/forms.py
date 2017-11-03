@@ -3,25 +3,38 @@ from django.core.urlresolvers import reverse
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Field, Submit
+from django.forms.models import formset_factory
 
-from .models import Patient
+from .models import Patient, Record
 
 
-class RecordCreateForm(ModelForm):
+class RecordForm(ModelForm):
+    """Record form"""
+
+    class Meta:
+        model = Record
+        fields = ('__all__')
+
+RecordFormSet = formset_factory(RecordForm, extra=1)
+formset = RecordFormSet()
+
+
+class PatientCreateForm(ModelForm):
+
     class Meta:
         model = Patient
         fields = ('__all__')
 
     def __init__(self, *args, **kwargs):
         # call original initializator
-        super(RecordCreateForm, self).__init__(*args, **kwargs)
+        super(PatientCreateForm, self).__init__(*args, **kwargs)
 
         self.helper = FormHelper(self)
     #
         # set form tag attributes
-        self.form_action = reverse('record_add',
+        self.form_action = reverse('patient_add',
                      kwargs={})
-        self.headline = u'Add Record'
+        self.headline = u'Add Patient'
     #
     #     # self.helper.form_tag = True
         self.form_method = 'POST'
@@ -42,7 +55,7 @@ class RecordCreateForm(ModelForm):
             Field('gender', wrapper_class='row'),
             Field('weight', wrapper_class='row'),
             Field('length', wrapper_class='row'),
-            Field('path_to_file', wrapper_class='row'),
+            # Field('path_to_file', wrapper_class='row'),
             Field('comment', wrapper_class='row'),
 
             ButtonHolder(
@@ -60,11 +73,11 @@ class RecordCreateForm(ModelForm):
         # self.helper.add_input(Submit('cancel_button', u'Cancel', css_class='btn btn-link'))
 
 
-class RecordUpdateForm(RecordCreateForm):
+class PatientUpdateForm(PatientCreateForm):
     def __init__(self, *args, **kwargs):
-        super(RecordUpdateForm, self).__init__(*args, **kwargs)
-        self.form_action = reverse('record_edit',
+        super(PatientUpdateForm, self).__init__(*args, **kwargs)
+        self.form_action = reverse('patient_edit',
                                    kwargs={'pk': kwargs['instance'].id})
-        self.headline = u'Edit Record'
+        self.headline = u'Edit Patient'
 
 

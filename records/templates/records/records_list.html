@@ -3,15 +3,14 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}{% trans 'Records' %}{% endblock meta_title %}
+{% block meta_title %}{% trans 'Patients' %}{% endblock meta_title %}
 
-{% block title %}{% trans 'Records List' %}{% endblock title %}
+{% block title %}{% trans 'Patients List' %}{% endblock title %}
 
 {% block content %}
-  <a href="{% url "record_add" %}" class="btn btn-primary">{% trans "Add Record" %}</a>
+  <a href="{% url "patient_add" %}" class="btn btn-primary">{% trans "Add Patient" %}</a>
 
 <table class="table table-striped">
-  {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
   <thead class="">
     <tr>
       <th>#</th>
@@ -23,14 +22,13 @@
       <th>{% trans "path to file" %}</th>
     </tr>
   </thead>
-  {% endwith %}
   <tbody>
-    {% for record in records %}
+    {% for record in patients %}
     <tr>
       <td>
         {{ forloop.counter }}
       </td>
-      <td><a href="{% url "record_edit" record.id %}" >{{ record.history_number }}</a></td>
+      <td><a href="{% url "patient_edit" record.id %}" >{{ record.history_number }}</a></td>
       <td>{{ record.date_time }}</td>
       <td>{% if record.gender %}{{ record.get_gender_display }}{% endif %}</td>
       <td>{{ record.weight }}</td>

@@ -46,13 +46,6 @@ class Patient(TimeStampedModel):
         verbose_name=u"Length"
     )
 
-    path_to_file = models.FileField(
-        blank=True,
-        verbose_name=u"Record",
-        upload_to='',
-        null=True
-    )
-
     doctor = models.ForeignKey(
         'Doctor',
         verbose_name=u'Doctor',
@@ -151,3 +144,56 @@ class Hospital(TimeStampedModel):
 
     def __unicode__(self):
         return u"%s %s" % (self.hospital_number, self.title)
+
+
+class Record(models.Model):
+    """Record Model"""
+
+    class Meta(object):
+        verbose_name = u"Record"
+        verbose_name_plural = u"Records"
+
+    patient = models.ForeignKey(
+        'Patient',
+        verbose_name=u'Patient'
+    )
+
+    path_to_file = models.FileField(
+        blank=True,
+        verbose_name=u"Record",
+        upload_to='',
+        null=True
+    )
+
+    def __unicode__(self):
+        return u"%s %s" % (self.patient, self.path_to_file)
+
+
+class RecordPart(models.Model):
+    """Part of Record Model"""
+
+    class Meta(object):
+        verbose_name = u"Part of Record"
+        verbose_name_plural = u"Parts of Records"
+
+    record = models.ForeignKey(
+        'Record',
+        verbose_name=u'Record'
+    )
+
+    start_time = models.CharField(
+        max_length=30,
+        verbose_name=u"Start Time",
+    )
+
+    end_time = models.CharField(
+        max_length=30,
+        verbose_name=u"End Time",
+    )
+
+    number = models.PositiveSmallIntegerField(
+        verbose_name=u"Number of Part"
+    )
+
+    def __unicode__(self):
+        return u"%s: %s - %s" % (self.record.patient, self.start_time, self.end_time)

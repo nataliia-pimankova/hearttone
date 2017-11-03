@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# website root url
+# PORTAL_URL = 'http://localhost:8006'
 
 # Application definition
 
