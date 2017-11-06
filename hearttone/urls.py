@@ -23,8 +23,10 @@ from .settings import MEDIA_ROOT, DEBUG
 urlpatterns = [
     # Records urls
     url(r'^$', views.PatientList.as_view(), name='home'),
-    url(r'^patient/add/$', views.PatientCreateView.as_view(), name='patient_add'),
-    url(r'^patient/(?P<pk>\d+)/edit/$', views.PatientUpdateView.as_view(), name='patient_edit'),
+    # url(r'^patient/add/$', views.PatientRecordCreateView.as_view(), name='patient_add'),
+    # url(r'^patient/(?P<pk>\d+)/edit/$', views.PatientRecordUpdateView.as_view(), name='patient_edit'),
+    url(r'^patient/add/$', views.edit_patient, name='patient_add'),
+    url(r'^patient/(?P<id_patient>\d+)/edit/$', views.edit_patient, name='patient_edit'),
     url(r'^patient/(?P<pk>\d+)/delete/$', views.PatientDeleteView.as_view(), name='patient_delete'),
 
     url(r'^admin/', admin.site.urls),

@@ -23,17 +23,22 @@
     </tr>
   </thead>
   <tbody>
-    {% for record in patients %}
+    {% for patient in patients %}
     <tr>
       <td>
         {{ forloop.counter }}
       </td>
-      <td><a href="{% url "patient_edit" record.id %}" >{{ record.history_number }}</a></td>
-      <td>{{ record.date_time }}</td>
-      <td>{% if record.gender %}{{ record.get_gender_display }}{% endif %}</td>
-      <td>{{ record.weight }}</td>
-      <td>{{ record.length }}</td>
-      <td>{{ record.path_to_file }}</td>
+      <td><a href="{% url "patient_edit" patient.id %}" >{{ patient.history_number }}</a></td>
+      <td>{{ patient.date_time }}</td>
+      <td>{% if patient.gender %}{{ patient.get_gender_display }}{% endif %}</td>
+      <td>{{ patient.weight }}</td>
+      <td>{{ patient.length }}</td>
+      <td>
+        {% for record in patient.records %}
+          {{ record.path_to_file }}<br/>
+        {% endfor %}
+
+      </td>
     </tr>
     {% endfor %}
 

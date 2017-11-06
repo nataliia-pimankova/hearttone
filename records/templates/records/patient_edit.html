@@ -1,0 +1,23 @@
+{% extends "../base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block meta_title %}{{ title }}{% endblock meta_title %}
+
+{% block title %}{% trans 'Add Record' %}{% endblock title %}
+
+{% block content %}
+
+     {% load crispy_forms_tags %}
+     <form method="post" action="" class="">
+
+        {% crispy form   %}
+        {% crispy formset formset.form.helper %}
+
+        <input class="submit" type="submit" value="Submit data">
+
+    </form>
+
+
+{% endblock content %}
