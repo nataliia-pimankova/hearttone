@@ -15,7 +15,6 @@ class PatientForm(ModelForm):
         self.helper = FormHelper()
         self.form_method = 'POST'
         self.helper.form_tag = False
-        # self.helper.form_class = 'form-horizontal'
         self.helper.labels_uppercase = True
 
         # set form field properties
@@ -50,22 +49,28 @@ class PatientForm(ModelForm):
         fields = ('__all__')
 
 
-class RecordForm(ModelForm):
+class RecordInlineForm(ModelForm):
     """Record form"""
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.labels_uppercase = True
+
+        # set form field properties
+        self.helper.help_text_inline = True
+        self.helper.html5_required = True
+        self.helper.label_class = 'col-sm-4 col-form-label'
+        self.helper.field_class = 'col-sm-8'
         self.helper.layout = Layout(
-            Field('path_to_file'),
+            Field('path_to_file', wrapper_class='row'),
+            Field('notes', wrapper_class='row'),
         )
-        super(RecordForm, self).__init__(*args, **kwargs)
+        super(RecordInlineForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        fields = ['path_to_file']
+        fields = ['path_to_file', 'notes']
         model = Record
-
-
 
 
 class PatientCreateForm(ModelForm):
@@ -85,9 +90,8 @@ class PatientCreateForm(ModelForm):
                      kwargs={})
         self.headline = u'Add Patient'
     #
-    #     # self.helper.form_tag = True
+        self.helper.form_tag = False
         self.form_method = 'POST'
-        # self.helper.form_class = 'form-horizontal'
         self.helper.labels_uppercase = True
 
         # set form field properties
@@ -104,23 +108,10 @@ class PatientCreateForm(ModelForm):
             Field('gender', wrapper_class='row'),
             Field('weight', wrapper_class='row'),
             Field('length', wrapper_class='row'),
-            # Fieldset('formset'),
-            # Field('path_to_file', wrapper_class='row'),
             Field('comment', wrapper_class='row'),
 
-            ButtonHolder(
-                Submit('save_button', u'Save', css_class='btn btn-primary'),
-                Submit('cancel_button', u'Cancel', css_class='btn btn-link'),
-                # css_class='row offset-sm-4'
-            )
         )
-
         self.helper.add_layout(layout)
-
-        # form buttons
-
-        # self.helper.add_input(Submit('save_button', u'Save', css_class='btn btn-primary'))
-        # self.helper.add_input(Submit('cancel_button', u'Cancel', css_class='btn btn-link'))
 
 
 class PatientUpdateForm(PatientCreateForm):

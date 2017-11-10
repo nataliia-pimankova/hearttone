@@ -165,6 +165,13 @@ class Record(models.Model):
         null=True
     )
 
+    notes = models.CharField(
+        max_length=256,
+        verbose_name=u"Notes",
+        null=True,
+        default=u""
+    )
+
     def __unicode__(self):
         return u"%s %s" % (self.patient, self.path_to_file)
 

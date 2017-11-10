@@ -9,6 +9,7 @@
 
 {% block content %}
   <a href="{% url "patient_add" %}" class="btn btn-primary">{% trans "Add Patient" %}</a>
+{#  <a href="{% url "patient_add_1" %}" class="btn btn-primary">{% trans "Add Patient 1" %}</a>#}
 
 <table class="table table-striped">
   <thead class="">
@@ -27,6 +28,7 @@
     <tr>
       <td>
         {{ forloop.counter }}
+{#      <a href="{% url "patient_edit_1" patient.id %}" >{{ patient.id }}</a>#}
       </td>
       <td><a href="{% url "patient_edit" patient.id %}" >{{ patient.history_number }}</a></td>
       <td>{{ patient.date_time }}</td>

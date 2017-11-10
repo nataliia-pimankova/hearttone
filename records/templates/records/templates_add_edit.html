@@ -10,9 +10,9 @@
 {% block content %}
 
 <form action="{{ form.form_action }}" method="{{ form.form_method }}"
-      novalidate enctype="multipart/form-data">
+      novalidate {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
 
-    {% crispy form %}
+{#    {% crispy form %}#}
 
 </form>
 

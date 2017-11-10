@@ -3,19 +3,23 @@
 {% load i18n %}
 {% load static from staticfiles %}
 
-{% block meta_title %}{{ title }}{% endblock meta_title %}
+{% block meta_title %}{{ form.headline }}{% endblock meta_title %}
 
-{% block title %}{% trans 'Add Record' %}{% endblock title %}
+{% block title %}{{ form.headline }}{% endblock title %}
 
 {% block content %}
 
      {% load crispy_forms_tags %}
-     <form method="post" action="" class="">
+     <form method="post" action="{{ form.form_action }}"
+           class=""  enctype="multipart/form-data" novalidate>
 
-        {% crispy form   %}
+        {% crispy form %}
         {% crispy formset formset.form.helper %}
 
-        <input class="submit" type="submit" value="Submit data">
+        <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}" name="save_button">
+        <a href="{% url 'home' %}" class="btn btn-link">back to the list</a>
+{#        <button class="btn btn-link" type="button"  name="cancel_button">{% trans 'Cancel' %}</button>#}
+
 
     </form>
 
