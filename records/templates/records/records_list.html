@@ -25,7 +25,7 @@
   </thead>
   <tbody>
     {% for patient in patients %}
-    <tr>
+    <tr class="{% if patient.status is 3 %}table-danger{% endif %}">
       <td>
         {{ forloop.counter }}
 {#      <a href="{% url "patient_edit_1" patient.id %}" >{{ patient.id }}</a>#}

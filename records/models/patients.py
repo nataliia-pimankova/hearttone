@@ -20,6 +20,18 @@ class Patient(TimeStampedModel):
         (GENDER_CHOICE_FEMALE, u"female"),
     )
 
+    # status.
+    STATUS_CHOICE_NEW = 1
+    STATUS_CHOICE_THENORM = 2
+    STATUS_CHOICE_NOTTHENORM = 3
+    STATUS_CHOICE_SOMETHINGSTRANGE = 4
+    STATUS_CHOICES = (
+        (STATUS_CHOICE_NEW, u"New"),
+        (STATUS_CHOICE_THENORM, u"The Norm"),
+        (STATUS_CHOICE_NOTTHENORM, u"Not The Norm"),
+        (STATUS_CHOICE_SOMETHINGSTRANGE, u"Something Strange"),
+    )
+
     history_number = models.CharField(
         max_length=10,
         verbose_name=u"Number of History",
@@ -46,6 +58,26 @@ class Patient(TimeStampedModel):
         verbose_name=u"Length"
     )
 
+    # status = {'new', 'norm', 'not norm', 'something strange'}// patient status
+    status = models.IntegerField(
+        verbose_name=u"Status",
+        choices=STATUS_CHOICES,
+        default=1,
+    )
+
+    ultrasound_findings = models.ImageField(
+        blank=True,
+        verbose_name=u"Ultrasound Findings",
+        upload_to='ultrasound',
+        null=True
+    )
+
+    # congenital heart defects (CHD)
+    congenital_heart_defects = models.BooleanField(
+        verbose_name=u'Congenital Heart Defects (CHD)',
+        default=False,
+    )
+
     doctor = models.ForeignKey(
         'Doctor',
         verbose_name=u'Doctor',
@@ -55,6 +87,18 @@ class Patient(TimeStampedModel):
     hospital = models.ForeignKey(
         'Hospital',
         verbose_name=u'Hospital',
+        null=True,
+    )
+
+    mobile_phone = models.CharField(
+        max_length=50,
+        verbose_name=u"Parent's Phone",
+        null=True,
+    )
+
+    email = models.EmailField(
+        max_length=50,
+        verbose_name=u"Parent's Email",
         null=True,
     )
 

@@ -30,15 +30,14 @@ class PatientForm(ModelForm):
             Field('gender', wrapper_class='row'),
             Field('weight', wrapper_class='row'),
             Field('length', wrapper_class='row'),
-            # Fieldset('formset'),
-            # Field('path_to_file', wrapper_class='row'),
+            Field('ultrasound_findings', wrapper_class='row'),
+            Field('congenital_heart_defects', wrapper_class='row'),
+            Field('mobile_phone', wrapper_class='row'),
+            Field('email', wrapper_class='row'),
+            # TODO: status of patient - readonly
+            Field('status', wrapper_class='row', css_class='form-control-plaintext', readonly='readonly'),
             Field('comment', wrapper_class='row'),
 
-            # ButtonHolder(
-            #     Submit('save_button', u'Save', css_class='btn btn-primary'),
-            #     Submit('cancel_button', u'Cancel', css_class='btn btn-link'),
-            #     css_class='row offset-sm-4'
-            # )
         )
 
         self.helper.add_layout(layout)
@@ -64,12 +63,14 @@ class RecordInlineForm(ModelForm):
         self.helper.field_class = 'col-sm-8'
         self.helper.layout = Layout(
             Field('path_to_file', wrapper_class='row'),
+            # TODO: status o record - readonly
+            Field('status', wrapper_class='row'),
             Field('notes', wrapper_class='row'),
         )
         super(RecordInlineForm, self).__init__(*args, **kwargs)
 
     class Meta:
-        fields = ['path_to_file', 'notes']
+        fields = ['path_to_file', 'status', 'notes']
         model = Record
 
 

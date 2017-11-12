@@ -12,6 +12,16 @@ class Record(TimeStampedModel):
         verbose_name = u"Record"
         verbose_name_plural = u"Records"
 
+    # status.
+    STATUS_CHOICE_NEW = 1
+    STATUS_CHOICE_PROCESSING = 2
+    STATUS_CHOICE_FINISHED = 3
+    STATUS_CHOICES = (
+        (STATUS_CHOICE_NEW, u"New"),
+        (STATUS_CHOICE_PROCESSING, u"Processing"),
+        (STATUS_CHOICE_FINISHED, u"Finished"),
+    )
+
     patient = models.ForeignKey(
         'Patient',
         verbose_name=u'Patient'
@@ -24,13 +34,18 @@ class Record(TimeStampedModel):
         null=True
     )
 
-    # status_ = {'new', 'processing', 'finished'}// record processing status
-
+    # status = {'new', 'processing', 'finished'}// record processing status
+    status = models.IntegerField(
+        verbose_name=u"Status",
+        choices=STATUS_CHOICES,
+        default=1,
+    )
 
     notes = models.CharField(
         max_length=256,
         verbose_name=u"Notes",
         null=True,
+        blank=True,
         default=u""
     )
 
